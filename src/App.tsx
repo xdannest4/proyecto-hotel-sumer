@@ -3,6 +3,8 @@ import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
 import CrearUser from "./pages/crearUser";
 import ConsultaHuesped from "./pages/consultaHuesped";
+import ModificarHuesped from "./pages/modificarHuesped";
+import EliminarHuesped from "./pages/eliminarHuesped";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/crear-user" element={<CrearUser />} />
         <Route path="/consulta-huesped" element={<ConsultaHuesped />} />
+        <Route path="/modificar-huesped" element={<ModificarHuesped />} />
+        <Route path="/eliminar-huesped" element={<EliminarHuesped />} />
       </Routes>
     </BrowserRouter>
   );

@@ -70,10 +70,10 @@ const Dashboard = () => {
             <button className="sidebar-button" type="button" onClick={() => navigate("/consulta-huesped")}>
               Consultar huesped
             </button>
-            <button className="sidebar-button" type="button">
+            <button className="sidebar-button" type="button" onClick={() => navigate("/modificar-huesped")}>
               Modificar huesped
             </button>
-            <button className="sidebar-button" type="button">
+            <button className="sidebar-button" type="button" onClick={() => navigate("/eliminar-huesped")}>
               Eliminar huesped
             </button>
           </nav>
@@ -89,7 +89,7 @@ const Dashboard = () => {
 
         <main className="dashboard-main">
           <div className="dashboard-header">
-            <h1>Bienvenido 🚀</h1>
+            <h1>¡Bienvenido!</h1>
             <p>Has iniciado sesión correctamente</p>
           </div>
 
