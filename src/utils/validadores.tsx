@@ -1,3 +1,5 @@
+//validaciones de email y largo de contraseña
+
 export const isValidEmail = (email: string): boolean => {
   return /\S+@\S+\.\S+/.test(email);
 };

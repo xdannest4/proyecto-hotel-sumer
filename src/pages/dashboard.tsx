@@ -3,9 +3,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
+import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user, logout } = useAuth(); 
+
   const [showAdminInfo, setShowAdminInfo] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -17,11 +20,12 @@ const Dashboard = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("auth");
-    navigate("/");
+    logout();
+    navigate("/login");
   };
-
+  
   return (
+    
     <div className="dashboard-page">
       <button
         className={`sidebar-toggle ${sidebarOpen ? "open" : ""}`}
@@ -63,21 +67,32 @@ const Dashboard = () => {
             </div>
           )}
 
-          <nav className="sidebar-nav">
-            <button className="sidebar-button" type="button" onClick={() => navigate("/crear-user")}>
+          {user?.role === "ADMIN" && (
+            <button
+              className="sidebar-button"
+              type="button"
+              onClick={() => navigate("/crear-user")}
+            >
               Crear huesped
             </button>
-            <button className="sidebar-button" type="button" onClick={() => navigate("/consulta-huesped")}>
-              Consultar huesped
-            </button>
-            <button className="sidebar-button" type="button" onClick={() => navigate("/modificar-huesped")}>
+          )}
+          
+          <button onClick={() => navigate("/consulta-huesped")}>
+            Consultar huesped
+          </button>  
+
+          {user?.role === "ADMIN" && (
+            <button onClick={() => navigate("/modificar-huesped")}>
               Modificar huesped
             </button>
-            <button className="sidebar-button" type="button" onClick={() => navigate("/eliminar-huesped")}>
+          )}
+
+          {user?.role === "ADMIN" && (
+            <button onClick={() => navigate("/eliminar-huesped")}>
               Eliminar huesped
             </button>
-          </nav>
-
+          )}
+          
           <button
             className="sidebar-logout"
             type="button"
@@ -89,8 +104,8 @@ const Dashboard = () => {
 
         <main className="dashboard-main">
           <div className="dashboard-header">
-            <h1>¡Bienvenido!</h1>
-            <p>Has iniciado sesión correctamente</p>
+            <h1>¡Bienvenido  {user?.email}!</h1>
+            <p>Rol: {user?.role}</p>
           </div>
 
           <div className="dashboard-cards">

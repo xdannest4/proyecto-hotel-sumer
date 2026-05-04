@@ -1,25 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./login.css";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   // Estados para guardar lo que escribe el usuario
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const navigate = useNavigate();
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const handleLogin = (e: React.FormEvent) => {
-  e.preventDefault();
+    if (!email || !password) {
+      alert("Debes completar todos los campos");
+      return;
+    }
 
-  // Simulación de login correcto
-  if (email && password) {
+    const success = await login(email, password);
 
-    localStorage.setItem("auth", "true");
-    
-    navigate("/dashboard"); // 👈 redirige
-  }
-};
+    if (success) {
+      navigate("/dashboard");
+    } else {
+      alert("Credenciales incorrectas");
+    }
+  };
 
 return (
     <div className="login-container">
