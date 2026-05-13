@@ -4,32 +4,18 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  token: string;
+  accessToken: string;
+  refreshToken: string;
   role: "ADMIN" | "USER";
 }
 
-export const loginUser = async (
-  email: string,
-  password: string
-): Promise<LoginResponse> => {
-  const response = await fetch("http://localhost:8080/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  });
-
-  if (!response.ok) {
-    throw new Error("Credenciales incorrectas");
-  }
-
-  return response.json();
+export type User = {
+  email: string;
+  role: "ADMIN" | "USER";
 };
 
-export const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("role");
-  localStorage.removeItem("email");
-  window.location.href = "/login";
-};
+export interface TokenPayload {
+  sub: string; // email
+  role: string;
+  exp: number;
+}

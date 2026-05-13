@@ -14,10 +14,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/crear-user" element={<ProtectedRoute><CrearUser /></ProtectedRoute>} />
+        <Route path="/crear-user" element={<ProtectedRoute allowedRoles={["ADMIN"]}><CrearUser /></ProtectedRoute>} />
         <Route path="/consulta-huesped" element={<ProtectedRoute><ConsultaHuesped /></ProtectedRoute>} />
-        <Route path="/modificar-huesped" element={<ProtectedRoute><ModificarHuesped /></ProtectedRoute>} />
-        <Route path="/eliminar-huesped" element={<ProtectedRoute><EliminarHuesped /></ProtectedRoute>} />
+        <Route path="/modificar-huesped" element={<ProtectedRoute allowedRoles={["ADMIN"]}><ModificarHuesped /></ProtectedRoute>} />
+        <Route path="/eliminar-huesped" element={<ProtectedRoute allowedRoles={["ADMIN"]}><EliminarHuesped /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );

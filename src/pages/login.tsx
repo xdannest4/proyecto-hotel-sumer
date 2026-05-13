@@ -11,6 +11,8 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -19,7 +21,9 @@ const Login = () => {
       return;
     }
 
+    setLoading(true);
     const success = await login(email, password);
+    setLoading(false);
 
     if (success) {
       navigate("/dashboard");
@@ -50,8 +54,8 @@ return (
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="login-button" type="submit">
-            Ingresar
+          <button className="login-button" type="submit" disabled={loading}>
+            {loading ? "Ingresando..." : "Ingresar"}
           </button>
         </form>
       </div>
